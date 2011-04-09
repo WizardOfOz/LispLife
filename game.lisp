@@ -1,15 +1,17 @@
 ; ======================================================================
-; Conway's "Game of Life"
-; (in Lisp)
+; Conway's Game of Life
+; 	[game.lisp]
 ;
-; by Mikko Saarela 2011
+; by Mikko Saarela, 2011
 ; ======================================================================
 
 (defparameter *live-cell* 1)
 (defparameter *dead-cell* 0)
 (defparameter *grid-size-x* 20)
 (defparameter *grid-size-y* 20)
-(defparameter *cell-row-array* nil)
+(defparameter *grid-array* nil)
+(defparameter *live-cell-char* "*")
+(defparameter *dead-cell-char* ".")
 
 (defun iterate-cells (grid func)
 	(dotimes (i *grid-size-y*)
@@ -18,18 +20,18 @@
 				(setf (aref row j) (funcall func))))))
  
 (defun init-grid ()
-	(defparameter *cell-row-array* (make-array  *grid-size-y*))
+	(defparameter *grid-array* (make-array  *grid-size-y*))
 	(dotimes (i *grid-size-y*)
-		(setf (aref *cell-row-array* i) (make-array  *grid-size-x*)))
-	(iterate-cells *cell-row-array* (lambda () '0)))
+		(setf (aref *grid-array* i) (make-array  *grid-size-x*)))
+	(iterate-cells *grid-array* (lambda () '0)))
 		
 (defun set-cell (x y type)
 	(if (valid-cell-p x y)
-		(setf (aref (aref *cell-row-array* y) x) type)))
+		(setf (aref (aref *grid-array* y) x) type)))
 	
 (defun get-cell (x y)
 	(if (valid-cell-p x y)
-		(aref (aref *cell-row-array* y) x)))
+		(aref (aref *grid-array* y) x)))
 
 (defun apply-deltas (deltas)
 	(loop for delta in deltas do
@@ -67,8 +69,8 @@
 
 (defun print-cell (type)
 	(princ (cond
-						((eq type *live-cell*) "*")
-						((eq type *dead-cell*) " "))))
+						((eq type *live-cell*) *live-cell-char*)
+						((eq type *dead-cell*) *dead-cell-char*))))
 
 (defun print-grid ()
 	(dotimes (y *grid-size-y*)
@@ -100,6 +102,6 @@
 
 ; main program
 (init-grid)
-;(randomize-grid *cell-row-array*)
+;(randomize-grid *grid-array*)
 ;(test-shape)
 (print-grid)
