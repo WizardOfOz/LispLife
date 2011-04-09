@@ -1,0 +1,20 @@
+README for Game of Life (Lisp)
+==============================
+
+This is an open source (MIT license) version of John Conway's "Game of Life" written in Common Lisp by Mikko Saarela.
+
+The development was done in CLisp.
+
+Usage:
+
+(load "game.lisp")
+(load "unit-tests.lisp")
+
+To display the grid currently:
+(print-grid) 
+
+To initialize the grid with a test shape:
+(test-shape)
+
+To calculate the next generation:
+(apply-deltas (tick))
