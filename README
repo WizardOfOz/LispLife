@@ -7,14 +7,14 @@ The development was done in CLisp.
 
 Usage:
 
-(load "game.lisp")
-(load "unit-tests.lisp")
+	(load "game.lisp")
+	(load "unit-tests.lisp")
 
 To display the grid currently:
-(print-grid) 
+	(print-grid) 
 
 To initialize the grid with a test shape:
-(test-shape)
+	(test-shape)
 
 To calculate the next generation:
-(apply-deltas (tick))
+	(apply-deltas (tick))
